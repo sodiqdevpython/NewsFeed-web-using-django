@@ -33,10 +33,13 @@
             <ul class="top_nav">
               <li><a href="{% url 'home' %}">Asosiy sahifa</a></li>
               <li><a href="{% url 'contact' %}">Aloqaga chiqish</a></li>
+              <li><a href="{% url 'profile' %}">{{ user.username.title }}</a></li>
             </ul>
           </div>
           <div class="header_top_right">
             <p>{% now "jS F Y H:i" %}</p>
+            {% if user.is_authenticated %}
+            {% endif %}
           </div>
         </div>
       </div>
