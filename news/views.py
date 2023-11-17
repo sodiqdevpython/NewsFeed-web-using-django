@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import News, Category
 from .forms import ContactForm
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 # Create your views here.
 
 def homepage(request):
@@ -49,17 +50,27 @@ def contact(request):
 	return render(request,'contact.html',context)
 
 
-def mahalliy(request):
-	data = News.objects.all().filter(category__name = 'Mahalliy')
-	context = {
-		'data':data
-	}
-	return render(request, 'mahalliy_news.html',context) 
+# def mahalliy(request):
+# 	data = News.objects.all().filter(category__name = 'Mahalliy')
+# 	context = {
+# 		'data':data
+# 	}
+# 	return render(request, 'mahalliy_news.html',context) 
 
-class TechView(ListView):
+# class TechView(ListView):
+# 	model = News
+# 	template_name = 'texnalogiya.html'
+# 	context_object_name = 'tech'
+
+# 	def get_queryset(self):
+# 		news = self.model.all().filter(category__name='Texnalogiya')
+
+class UpdateNews(UpdateView):
 	model = News
-	template_name = 'texnalogiya.html'
-	context_object_name = 'tech'
+	fields = ['title','body','image','category','is_avilable']
+	template_name = 'update_news.html'
 
-	def get_queryset(self):
-		news = self.model.all().filter(category__name='Texnalogiya')
+class DeleteNews(DeleteView):
+	model = News
+	template_name = 'delete_news.html'
+	success_url = reverse_lazy('home')

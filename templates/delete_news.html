@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Yangilash{% endblock title %}
+{% block content %}
+  <section id="contentSection">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="container">
+          <h2>Ushbu yangilkni o'chirish</h2>
+          <form method="post"> {% csrf_token %}
+            <p>{{ object.title }}</p><br>
+            <img src="{{ object.image.url }}"><br>
+            <input type="submit" class="btn btn-danger" value="O'chirish">
+          </form> 
+      </div>
+    </div>
+  </section>
+{% endblock content %}
