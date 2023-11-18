@@ -27,7 +27,9 @@ urlpatterns = [
     path('', include('news.urls')),
     path('login/', LoginView.as_view(authentication_form=CustomAuthenticationForm), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('profile/', profile, name='profile')
+    path('profile/', profile, name='profile'),
+    path('account/', include('users.urls')),
+    # path('account/', include('django.contrib.auth.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
