@@ -70,9 +70,9 @@ def contact(request):
 # 		news = self.model.all().filter(category__name='Texnalogiya')
 
 class CreateNewsView(OnlyLoggedSuperUser,CreateView):
-	model = News
-	template_name = 'create_news.html'
-	fields = "__all__"
+	model = News 
+	template_name = 'create_news.html' 
+	fields = "__all__" 
 	success_url = reverse_lazy('home')
 
 class UpdateNews(OnlyLoggedSuperUser, UpdateView):
@@ -85,3 +85,4 @@ class DeleteNews(OnlyLoggedSuperUser, DeleteView):
 	model = News
 	template_name = 'delete_news.html'
 	success_url = reverse_lazy('home')
+
