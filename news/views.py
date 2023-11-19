@@ -4,6 +4,10 @@ from .models import News, Category
 from .forms import ContactForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin 
+
+from .custom_permission_cud import OnlyLoggedSuperUser # Bu yerda o'zim yangi ruxsatnoma yaratib uni ishlataman
+
 # Create your views here.
 
 def homepage(request):
@@ -65,12 +69,19 @@ def contact(request):
 # 	def get_queryset(self):
 # 		news = self.model.all().filter(category__name='Texnalogiya')
 
-class UpdateNews(UpdateView):
+class CreateNewsView(OnlyLoggedSuperUser,CreateView):
+	model = News
+	template_name = 'create_news.html'
+	fields = "__all__"
+	success_url = reverse_lazy('home')
+
+class UpdateNews(OnlyLoggedSuperUser, UpdateView):
 	model = News
 	fields = ['title','body','image','category','is_avilable']
 	template_name = 'update_news.html'
+	success_url = reverse_lazy('home')
 
-class DeleteNews(DeleteView):
+class DeleteNews(OnlyLoggedSuperUser, DeleteView):
 	model = News
 	template_name = 'delete_news.html'
 	success_url = reverse_lazy('home')

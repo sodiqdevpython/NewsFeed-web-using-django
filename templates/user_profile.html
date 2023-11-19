@@ -3,7 +3,13 @@
 {% block content %}
 
 <div class='container'>
-    <h3>Xush kelibsiz {{ user.username.title }}</h3>
+    <h4>Foydalanuvchi nomi: {{ user.username.title }}</h3>
+    <label>Ism: {{ user.first_name }}</label><br>
+    <label>Familiya: {{ user.last_name }}</label><br>
+    <label>Email: {{ user.email }}</label>
+    <img style='width: 38rem' src='{{ user.profile.image.url }}' alt='Nimadir xato ketdi ):'><br>
+    <label>Tug'ilgan yil: {{ user.profile.date_of_birth }}</label><br><br>
+    <a href="{% url 'logout' %}" class='btn btn-danger shadow'>Chiqish</a>
 </div>
 
 {% endblock content %}

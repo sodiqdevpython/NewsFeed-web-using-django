@@ -27,7 +27,7 @@
               {% for post in posts %}
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'detail' post.slug %}" class="media-left"> <img alt="" src="{{ post.image.url }}"> </a>
-                    <div class="media-body"> <a href="single_page.html" class="catg_title">{{ post.title|truncatewords:3 }}</a> </div>
+                    <div class="media-body"> <a href="{% url 'detail' post.slug %}" class="catg_title">{{ post.title|truncatewords:3 }}</a> </div>
                   </div>
                 </li>
               {% endfor %}

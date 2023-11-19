@@ -1,27 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Error 404{% endblock title %}
+{% block title %}Yangilash{% endblock title %}
 {% block content %}
   <section id="contentSection">
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
-          <div class="error_page">
-            <h3>We Are Sorry</h3>
-            <h1>404</h1>
-            <p>Unfortunately, the page you were looking for could not be found. It may be temporarily unavailable, moved or no longer exists</p>
-            <span></span> <a href="../index.html" class="wow fadeInLeftBig">Go to home page</a> </div>
-        </div>
+          <h2>Ushbu yangilkni yangilash</h2>
+          <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+              {{ form.as_p }}
+            <input type="submit" class="btn btn-danger" value="Saqlash">
+          </form> 
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
           <div class="single_sidebar">
             <h2><span>So'ngi yangiliklar</span></h2>
             <ul class="spost_nav">
-              {% for i in data_slider %}
+              {% for i in news_ticker %}
                 <li>
                   <div class="media wow fadeInDown"> <a href="{% url 'detail' i.slug %}" class="media-left"> <img alt="" src="{{ i.image.url }}"> </a>
-                    <div class="media-body"> <a href="{% url 'detail' i.slug %}" class="catg_title">{{ i.title|truncatewords:4 }}</a> </div>
+                    <div class="media-body"> <a href="single_page.html" class="catg_title">{{ i.title|truncatewords:4 }}</a> </div>
                   </div>
                 </li>
               {% endfor %}

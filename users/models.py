@@ -8,3 +8,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} profili"
+    
+    class Meta:
+        verbose_name = 'Profil'
+        verbose_name_plural = 'Profil'

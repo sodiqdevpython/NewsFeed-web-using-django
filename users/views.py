@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
-# Create your views here.
+from django.views.generic import CreateView, UpdateView
+from .models import Profile
+from django.contrib.auth.decorators import login_required
+
+
+@login_required()
 def profile(request):
     user = request.user
     context = {

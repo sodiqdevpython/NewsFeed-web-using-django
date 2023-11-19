@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Yangilash{% endblock title %}
+{% block title %}Yangilik qo'shish{% endblock title %}
 {% block content %}
   <section id="contentSection">
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
-          <h2>Ushbu yangilkni yangilash</h2>
           <form method="post" enctype="multipart/form-data"> {% csrf_token %}
             <p>{{ object.title }}</p>
               {{ form.as_p }}
             <input type="submit" class="btn btn-danger" value="Saqlash">
           </form> 
       </div>
+      
     </div>
   </section>
 {% endblock content %}
