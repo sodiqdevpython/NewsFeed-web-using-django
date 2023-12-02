@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import News, Category
-from .forms import ContactForm
+from .models import News, Category, Comments
+from .forms import ContactForm, CommentForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin 
@@ -36,8 +36,20 @@ def get_404(request):
 
 def detail(request, slug):
 	data_detail = get_object_or_404(News, slug = slug)
+
+	data_comment = Comments.objects.all().filter(name=data_detail , active=True)
+
+	comment_form = CommentForm(request.POST or None)
+	if request.method=='POST' and comment_form.is_valid():
+		new_comment = comment_form.save(commit=False) # commit = False bu degani birdaniga save qilmaydida pastdagi aytgan ishlarimni qiladi
+		new_comment.name = data_detail # comentariyadagi name ni ushbu detaildagi name ga tengladim
+		new_comment.user = request.user # comentariyadagi avtorni request jo'natayotgan odamga tengladim
+		new_comment.save() # ana endi tepadagilarni hammasini qilib DB ga saqladim
+
 	context = {
-		'data_detail': data_detail
+		'data_detail': data_detail,
+		'data_comment': data_comment,
+		'comment_form': comment_form
 	}
 	return render(request, 'single_page.html', context = context)
 

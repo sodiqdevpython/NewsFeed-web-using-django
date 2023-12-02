@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact ,Category ,News
+from .models import Contact ,Category ,News, Comments
 # Register your models here.
 
 @admin.register(Category)
@@ -20,3 +20,16 @@ class ContactAdmin(admin.ModelAdmin):
 	search_fields = ['name', 'email', 'message']
 	list_filter = ['send_time']
 	date_hierarchy = 'send_time'
+
+@admin.register(Comments)
+class CommentsViewAdmin(admin.ModelAdmin):
+	list_display = [ 'user', 'time', 'active' ]
+	search_fields = [ 'user', 'body' ]
+	list_filter = [ 'user', 'active' ]
+	actions = ['enable_comments','disable_comments']
+
+	def disable_comments(self, request, queryset):
+		queryset.update(active=False)
+	
+	def enable_comments(self, request, queryset):
+		queryset.update(active=True)
